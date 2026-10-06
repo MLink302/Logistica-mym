@@ -8,8 +8,8 @@
 
   var nav = document.getElementById('nav');
 
-  /* 1. Fondo del menú al bajar ------------------------------------------- */
-  if (nav && !nav.classList.contains('nav--solid')) {
+  /* 1. Menú compacto al bajar  ------------------------------------------- */
+  if (nav) {
     var onScroll = function () {
       nav.classList.toggle('is-scrolled', window.scrollY > 60);
     };
@@ -45,7 +45,7 @@
     });
 
     // Si la ventana se agranda a escritorio, se cierra
-    window.matchMedia('(min-width: 1024px)').addEventListener('change', function (mq) {
+    window.matchMedia('(min-width: 1140px)').addEventListener('change', function (mq) {
       if (mq.matches) setOpen(false);
     });
   }
