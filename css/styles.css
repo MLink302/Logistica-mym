@@ -226,9 +226,11 @@ button { font: inherit; color: inherit; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 50;
+  --nav-h: 104px;            /* alto del menú arriba de la página; al bajar se compacta */
   background: linear-gradient(to bottom, rgba(var(--navy-rgb), 0.85) 0%, rgba(var(--navy-rgb), 0) 100%);
   transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
+.nav.is-scrolled { --nav-h: 72px; }
 .nav.is-scrolled,
 .nav--solid {
   background: rgba(var(--navy-rgb), 0.97);
@@ -239,6 +241,7 @@ button { font: inherit; color: inherit; }
 
 .nav__inner {
   height: var(--nav-h);
+  transition: height 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -251,29 +254,33 @@ button { font: inherit; color: inherit; }
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 56px;
-  padding: 4px 9px;
+  height: calc(var(--nav-h) - 16px);
+  padding: 6px 12px;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  transition: height 0.3s ease;
 }
-.brand__logo { height: 48px; width: auto; }
+.brand__logo { height: 100%; width: auto; }
 .brand__text { display: block; }
 .brand__name {
   display: block;
   color: #fff;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: 0.05em;
   line-height: 1.1;
+  transition: font-size 0.3s ease;
 }
+.nav.is-scrolled .brand__name { font-size: 15px; }
 .brand__sub {
   display: block;
   color: var(--on-dark-muted);
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.18em;
 }
+.nav.is-scrolled .brand__sub { font-size: 10px; }
 
 .nav__menu { display: flex; align-items: center; gap: 6px; }
 .nav__link {
@@ -287,6 +294,7 @@ button { font: inherit; color: inherit; }
 }
 .nav__link:hover,
 .nav__link[aria-current="page"] { color: #fff; background: rgba(255, 255, 255, 0.06); }
+.nav__shop { margin-left: 10px; }
 .nav__cta { margin-left: 8px; }
 
 .nav__toggle {
@@ -644,7 +652,7 @@ button { font: inherit; color: inherit; }
 .marquee.is-animated::after { right: 0; background: linear-gradient(to left, var(--offwhite) 0%, transparent 100%); }
 
 .marquee__track { display: flex; align-items: center; width: max-content; }
-.marquee.is-animated .marquee__track { animation: marqueeScroll 64s linear infinite; }
+.marquee.is-animated .marquee__track { animation: marqueeScroll 84s linear infinite; }
 .marquee.is-animated:hover .marquee__track { animation-play-state: paused; }
 
 @keyframes marqueeScroll {
@@ -655,7 +663,7 @@ button { font: inherit; color: inherit; }
 .client {
   display: flex;
   align-items: center;
-  padding: 28px 0 28px 52px;
+  padding: 28px 0 28px 60px;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -663,15 +671,15 @@ button { font: inherit; color: inherit; }
   content: "";
   flex-shrink: 0;
   width: 4px; height: 4px;
-  margin-left: 52px;
+  margin-left: 60px;
   border-radius: 50%;
   background: rgba(var(--steel-rgb), 0.25);
 }
 .client__logo {
   flex-shrink: 0;
-  height: 76px;
+  height: 108px;
   width: auto;
-  max-width: 200px;
+  max-width: 270px;
   object-fit: contain;
 }
 
@@ -817,8 +825,8 @@ button { font: inherit; color: inherit; }
   margin-bottom: 56px;
 }
 .footer .brand { margin-bottom: 20px; }
-.footer .brand__plate { height: 52px; box-shadow: none; }
-.footer .brand__logo { height: 44px; }
+.footer .brand__plate { height: 68px; box-shadow: none; }
+.footer .brand__name { font-size: 15px; }
 .footer__about { max-width: 280px; color: var(--on-dark-muted); font-size: 14px; line-height: 1.85; }
 .footer__heading {
   margin-bottom: 18px;
@@ -881,7 +889,7 @@ button { font: inherit; color: inherit; }
   background: linear-gradient(to bottom, transparent 5%, var(--red) 30%, var(--red) 75%, transparent 95%);
   opacity: 0.9;
 }
-.page-hero__inner { position: relative; z-index: 3; padding-top: 120px; }
+.page-hero__inner { position: relative; z-index: 3; padding-top: 152px; }
 .breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 28px; font-size: 13px; }
 .breadcrumb a { color: var(--on-dark-muted); transition: color 0.2s; }
 .breadcrumb a:hover { color: #fff; }
@@ -1010,7 +1018,10 @@ button { font: inherit; color: inherit; }
 /* 15. Tablet y móvil ------------------------------------------------------- */
 
 /* Menú hamburguesa */
-@media (max-width: 1023px) {
+@media (max-width: 1139px) {
+  .nav { --nav-h: 88px; }
+  .nav.is-scrolled { --nav-h: 68px; }
+  .brand__name { font-size: 16px; }
   .nav__toggle { display: flex; }
   .nav.is-open {
     background: rgba(var(--navy-rgb), 0.98);
@@ -1034,7 +1045,8 @@ button { font: inherit; color: inherit; }
   .js .nav__menu { display: none; }
   .js .nav.is-open .nav__menu { display: flex; }
   .nav__link { padding: 14px 12px; font-size: 16px; }
-  .nav__cta { margin: 12px 0 0; justify-content: center; padding: 14px 20px; font-size: 14px; }
+  .nav__shop { margin: 12px 0 0; justify-content: center; padding: 14px 20px; font-size: 14px; }
+  .nav__cta { margin: 10px 0 0; justify-content: center; padding: 14px 20px; font-size: 14px; }
 
   /* Sin JavaScript el menú queda abierto: que no tape la página al bajar */
   html:not(.js) .nav { position: absolute; }
@@ -1094,9 +1106,9 @@ button { font: inherit; color: inherit; }
 
   .marquee.is-animated::before,
   .marquee.is-animated::after { width: 48px; }
-  .client { padding: 20px 0 20px 32px; }
-  .client::after { margin-left: 32px; }
-  .client__logo { height: 60px; max-width: 160px; }
+  .client { padding: 20px 0 20px 40px; }
+  .client::after { margin-left: 40px; }
+  .client__logo { height: 80px; max-width: 210px; }
 
   .faq__q { padding: 22px 0; font-size: 15px; }
   .faq__a { padding-bottom: 22px; }
@@ -1111,7 +1123,7 @@ button { font: inherit; color: inherit; }
   .footer__bottom { flex-direction: column; align-items: flex-start; }
 
   .page-hero { min-height: 0; padding-bottom: 56px; }
-  .page-hero__inner { padding-top: 112px; }
+  .page-hero__inner { padding-top: 128px; }
   .page-hero__text { font-size: 16px; }
   .contact { padding: 48px 0 72px; }
   .contact__lead { margin-bottom: 28px; }
